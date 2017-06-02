@@ -1,2 +1,3 @@
 # huffman-coding
-API for Huffman coding
+
+Python API for Huffman coding.
