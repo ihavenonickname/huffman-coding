@@ -32,15 +32,15 @@ module Huffman =
         | [head] -> head
         | [] -> failwith "Empty sequence"
 
-    let private codeTable tree =
-        let rec codeTable'  acc code tree =
-            match tree with
-            | Leaf (c, _) -> Map.add c code acc
-            | Internal (left, right, _) ->
-                let fromLeft = codeTable' acc (code + "0") left
-                let fromRight = codeTable' acc (code + "1") right
-                joinMaps fromLeft fromRight
+    let rec private codeTable'  acc code tree =
+        match tree with
+        | Leaf (c, _) -> Map.add c code acc
+        | Internal (left, right, _) ->
+            let fromLeft = codeTable' acc (code + "0") left
+            let fromRight = codeTable' acc (code + "1") right
+            joinMaps fromLeft fromRight
 
+    let private codeTable tree =
         match tree with
         | Leaf (c, _) -> Map.ofList [(c, "0")]
         | _ -> codeTable' Map.empty "" tree
